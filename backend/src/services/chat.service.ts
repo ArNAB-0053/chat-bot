@@ -9,6 +9,7 @@ import {
   type MessageRecord,
 } from '../repositories/message.repository.js';
 import type { ChatMessageResponse } from '../types/chat.js';
+import { SUPPORT_AGENT_PROMPT } from '../prompts/support-agent.prompt.js';
 
 let openRouterClient: OpenAI | null = null;
 
@@ -24,10 +25,19 @@ function getOpenRouterClient(): OpenAI {
 }
 
 function mapMessages(messages: MessageRecord[]) {
-  return messages.map((message) => ({
-    role: message.role === 'assistant' ? 'assistant' : 'user',
-    content: message.content,
-  })) as OpenAI.Chat.Completions.ChatCompletionMessageParam[];
+  return [
+    {
+      role: 'system',
+      content: SUPPORT_AGENT_PROMPT,
+    },
+
+    ...messages.map((message) => ({
+      role: message.role === 'assistant'
+        ? 'assistant'
+        : 'user',
+      content: message.content,
+    })),
+  ] as OpenAI.Chat.Completions.ChatCompletionMessageParam[];
 }
 
 export async function sendMessage(

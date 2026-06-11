@@ -84,6 +84,14 @@
       message = currentMessage;
     }
   }
+
+  function handleKeyDown(event: KeyboardEvent) {
+    if (event.key === "Enter" && !event.shiftKey) {
+      event.preventDefault();
+      const form = (event.currentTarget as HTMLTextAreaElement).closest("form");
+      form?.requestSubmit();
+    }
+  }
 </script>
 
 <form
@@ -98,6 +106,7 @@
       class="max-h-36 min-h-11 resize-none rounded-lg py-3 text-sm"
       bind:value={message}
       disabled={!conversationId || isPendingOrStreaming}
+	  onkeydown={handleKeyDown}
     />
     <Button
       type="submit"

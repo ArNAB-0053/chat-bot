@@ -1,5 +1,7 @@
 <script lang="ts">
   import type { MessageRole, MessageStatus } from "$lib/types/message";
+  import { marked } from "marked";
+  import ChatLoader from "./ui/loader/chat-loader.svelte";
 
   type Props = {
     role: MessageRole;
@@ -11,6 +13,8 @@
   const isUser = $derived(role === "user");
   const isError = $derived(status === "error");
   const isSending = $derived(status === "sending");
+
+  const html = $derived(marked(content));
 </script>
 
 <article
@@ -31,17 +35,9 @@
     class:text-foreground={!isUser}
   >
     {#if role === "assistant" && status === "streaming" && !content}
-      <div class="flex gap-1">
-        <div class="size-2 animate-bounce rounded-full bg-current"></div>
-        <div
-          class="size-2 animate-bounce rounded-full bg-current [animation-delay:150ms]"
-        ></div>
-        <div
-          class="size-2 animate-bounce rounded-full bg-current [animation-delay:300ms]"
-        ></div>
-      </div>
+      <ChatLoader/>
     {:else}
-      <p class="whitespace-pre-wrap">{content}</p>
+      <p class="whitespace-pre-wrap">{@html html}</p>
     {/if}
     {#if isError}
       <p class="mt-1 text-[11px] opacity-75">Failed to send</p>
