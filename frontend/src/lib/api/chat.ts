@@ -1,42 +1,59 @@
-import type { ApiResponse, MessagePayload } from '$lib/types/api';
-import { env } from '$lib/utils/env';
+import type { ApiResponse, MessagePayload } from "$lib/types/api";
+import { env } from "$lib/utils/env";
 
 type SendMessageRequest = {
-	conversationId: string;
-	message: string;
+  conversationId: string;
+  message: string;
 };
 
 type FetchOptions = RequestInit & {
-	json?: unknown;
+  json?: unknown;
 };
 
-async function requestJson<TData>(path: string, options: FetchOptions = {}): Promise<ApiResponse<TData>> {
-	const { json, headers, ...rest } = options;
-	const response = await fetch(path, {
-		credentials: 'include',
-		...rest,
-		headers: {
-			'Content-Type': 'application/json',
-			...headers,
-		},
-		body: json === undefined ? rest.body : JSON.stringify(json),
-	});
+async function requestJson<TData>(
+  path: string,
+  options: FetchOptions = {},
+): Promise<ApiResponse<TData>> {
+  const { json, headers, ...rest } = options;
+  const response = await fetch(path, {
+    credentials: "include",
+    ...rest,
+    headers: {
+      "Content-Type": "application/json",
+      ...headers,
+    },
+    body: json === undefined ? rest.body : JSON.stringify(json),
+  });
 
-	const payload = (await response.json()) as ApiResponse<TData> | { message?: string };
+  if (response.status === 401 || response.status === 403) {
+    if (typeof window !== "undefined") {
+      window.location.href = "/";
+    }
+    return Promise.reject(new Error("Unauthorized"));
+  }
 
-	if (!response.ok) {
-		const message = typeof payload === 'object' && payload && 'message' in payload ? payload.message : 'Request failed';
-		throw new Error(message || 'Request failed');
-	}
+  const payload = (await response.json()) as
+    | ApiResponse<TData>
+    | { message?: string };
 
-	return payload as ApiResponse<TData>;
+  if (!response.ok) {
+    const message =
+      typeof payload === "object" && payload && "message" in payload
+        ? payload.message
+        : "Request failed";
+    throw new Error(message || "Request failed");
+  }
+
+  return payload as ApiResponse<TData>;
 }
 
-export async function sendMessage(body: SendMessageRequest): Promise<MessagePayload> {
-	const response = await requestJson<MessagePayload>(`${env.API_URL}/chat`, {
-		method: 'POST',
-		json: body,
-	});
+export async function sendMessage(
+  body: SendMessageRequest,
+): Promise<MessagePayload> {
+  const response = await requestJson<MessagePayload>(`${env.API_URL}/chat`, {
+    method: "POST",
+    json: body,
+  });
 
-	return response.data;
+  return response.data;
 }

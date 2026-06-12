@@ -5,7 +5,7 @@ export interface ConversationSummary {
   updatedAt: Date;
 }
 
-type MessageStatus = | "sending" | "streaming" | "sent" | "error";
+export type MessageStatus = 'sending' | 'streaming' | 'sent' | 'error';
 
 export interface ConversationMessage {
   id: string;
@@ -13,7 +13,6 @@ export interface ConversationMessage {
   content: string;
   createdAt: Date;
   conversationId: string;
-  status: MessageStatus;
 }
 
 export interface ConversationDetails extends ConversationSummary {
