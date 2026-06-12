@@ -11,7 +11,7 @@ const SESSION_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
 
 const sessionCookieOptions = {
   httpOnly: true,
-  sameSite: 'lax' as const,
+  sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
   secure: env.NODE_ENV === 'production',
   path: '/',
   maxAge: SESSION_COOKIE_MAX_AGE_SECONDS,
