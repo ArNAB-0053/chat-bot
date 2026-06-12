@@ -62,7 +62,7 @@ export async function getConversationService(conversationId: string): Promise<Co
 	return normalizeConversationDetails(response.conversation);
 }
 
-export async function createConversationService(): Promise<ConversationSummary> {
-	const response = await createConversation();
+export async function createConversationService(data?: { title?: string }): Promise<ConversationSummary> {
+	const response = await createConversation(data ? { title: data.title } : {});
 	return normalizeConversationSummary(response.conversation);
 }

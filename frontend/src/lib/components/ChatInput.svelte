@@ -3,7 +3,7 @@
   import { Textarea } from "$lib/components/ui/textarea/index.js";
   import { useSendMessage } from "$lib/queries/chat";
   import { conversationStore } from "$lib/stores/conversation.store.svelte";
-  import PaperPlaneTiltIcon from "phosphor-svelte/lib/PaperPlaneTilt";
+  import { Send } from "lucide-svelte";
 
   type Props = {
     conversationId: string | null;
@@ -80,6 +80,11 @@
       }, 30);
     } catch {
       conversationStore.markMessageError(targetConversationId, userMsgId);
+      conversationStore.setAssistantError(
+        targetConversationId,
+        assistantMsgId,
+        "Sorry, I could not generate a response at this time. Please try again.",
+      );
 
       message = currentMessage;
     }
@@ -98,7 +103,7 @@
   class="shrink-0 border-t bg-background p-3 sm:p-4"
   onsubmit={handleSubmit}
 >
-  <div class="mx-auto flex w-full max-w-3xl items-end gap-2">
+  <div class="mx-auto flex w-full max-w-3xl items-center gap-2">
     <Textarea
       aria-label="Message"
       placeholder="Type your message..."
@@ -106,7 +111,7 @@
       class="max-h-36 min-h-11 resize-none rounded-lg py-3 text-sm"
       bind:value={message}
       disabled={!conversationId || isPendingOrStreaming}
-	  onkeydown={handleKeyDown}
+      onkeydown={handleKeyDown}
     />
     <Button
       type="submit"
@@ -115,16 +120,7 @@
       aria-label="Send message"
       disabled={!conversationId || !message.trim() || isPendingOrStreaming}
     >
-      <PaperPlaneTiltIcon class="size-4" weight="fill" />
+      <Send class="size-4" />
     </Button>
   </div>
-  <p
-    class="mx-auto mt-2 max-w-3xl text-center text-[11px] text-muted-foreground"
-  >
-    {#if conversationId}
-      AI responses may contain mistakes.
-    {:else}
-      Create or select a conversation before sending a message.
-    {/if}
-  </p>
 </form>

@@ -13,5 +13,5 @@ export interface Message {
 	role: MessageRole;
 	content: string;
 	createdAt: string;
-	status?: 'streaming' | 'completed' | 'error';
+	status: 'streaming' | 'sent' | 'error';
 }

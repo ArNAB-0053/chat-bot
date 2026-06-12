@@ -3,10 +3,10 @@
 	import { Button } from '$lib/components/ui/button/index.js';
 	import * as Sheet from '$lib/components/ui/sheet/index.js';
 	import { useGetConversation } from '$lib/queries/conversation';
-	import ListIcon from 'phosphor-svelte/lib/List';
 	import ChatInput from './ChatInput.svelte';
 	import MessageList from './MessageList.svelte';
 	import Sidebar from './Sidebar.svelte';
+	import { TextAlignJustify } from "lucide-svelte";
 
 	let sidebarCollapsed = $state(false);
 	let mobileSidebarOpen = $state(false);
@@ -31,7 +31,7 @@
 	</div>
 
 	<Sheet.Root bind:open={mobileSidebarOpen}>
-		<Sheet.Content side="left" class="w-72 p-0 sm:max-w-72">
+		<Sheet.Content side="left" class="max-w-72! w-72! bg-black [&>button]:hidden p-0 flex flex-col">
 			<Sheet.Title class="sr-only">Conversation sidebar</Sheet.Title>
 			<Sheet.Description class="sr-only">
 				Start a new chat or choose a recent conversation.
@@ -52,18 +52,11 @@
 				aria-label="Open conversation sidebar"
 				onclick={() => (mobileSidebarOpen = true)}
 			>
-				<ListIcon class="size-5" />
+				<TextAlignJustify class="size-5" />
 			</Button>
 
 			<div class="min-w-0">
 				<h1 class="truncate text-sm font-semibold sm:text-base">{conversationTitle}</h1>
-				<p class="truncate text-xs text-muted-foreground">
-					{#if selectedConversationId}
-						Chat with your assistant
-					{:else}
-						Select a conversation to begin
-					{/if}
-				</p>
 			</div>
 		</header>
 

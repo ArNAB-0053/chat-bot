@@ -35,7 +35,7 @@ export function useCreateConversation() {
 	const queryClient = useQueryClient();
 
 	return createMutation(() => ({
-		mutationFn: createConversationService,
+		mutationFn: (data?: { title?: string }) => createConversationService(data),
 		onSuccess: async () => {
 			await queryClient.invalidateQueries({ queryKey: ['conversations'] });
 		},

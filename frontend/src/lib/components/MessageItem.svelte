@@ -2,6 +2,7 @@
   import type { MessageRole, MessageStatus } from "$lib/types/message";
   import { marked } from "marked";
   import ChatLoader from "./ui/loader/chat-loader.svelte";
+  import { CircleAlert } from "lucide-svelte";
 
   type Props = {
     role: MessageRole;
@@ -23,24 +24,32 @@
   class:justify-start={!isUser}
 >
   <div
-    class="max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-6 sm:max-w-[75%]"
+    class="rounded-2xl px-4 py-3 text-sm leading-6"
+    class:max-w-[75%]={isUser}
+    class:max-w-full={!isUser}
+    class:w-fit={!isUser}
     class:rounded-br-sm={isUser}
-    class:bg-primary={isUser && !isError}
-    class:text-primary-foreground={isUser && !isError}
-    class:bg-destructive={isError}
-    class:text-destructive-foreground={isError}
-    class:opacity-60={isSending}
+    class:bg-primary={isUser}
+    class:text-primary-foreground={isUser}
     class:rounded-bl-sm={!isUser}
-    class:bg-muted={!isUser}
+    class:bg-[#FCEBEB]={!isUser && isError}
+    class:border={!isUser && isError}
+    class:border-[#F09595]={!isUser && isError}
+    class:bg-muted={!isUser && !isError}
     class:text-foreground={!isUser}
   >
     {#if role === "assistant" && status === "streaming" && !content}
-      <ChatLoader/>
+      <ChatLoader />
+    {:else if !isUser && isError}
+      <div class="mb-1.5 flex items-center gap-1.5">
+        <CircleAlert size={14} class="text-[#A32D2D]" />
+        <span class="text-[11px] font-medium text-[#A32D2D]"
+          >Something went wrong</span
+        >
+      </div>
+      <p class="markdown text-[#791F1F]">{@html html}</p>
     {:else}
-      <p class="whitespace-pre-wrap">{@html html}</p>
-    {/if}
-    {#if isError}
-      <p class="mt-1 text-[11px] opacity-75">Failed to send</p>
+      <p class="markdown">{@html html}</p>
     {/if}
   </div>
 </article>
