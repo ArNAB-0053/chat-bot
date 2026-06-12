@@ -42,7 +42,7 @@ export const env = Object.freeze({
   PORT: parsePort(process.env.PORT),
   DATABASE_URL: databaseUrl,
   NODE_ENV: parseNodeEnv(process.env.NODE_ENV),
-  ALLOWED_ORIGIN: process.env.NODE_ENV,
+  ALLOWED_ORIGIN: process.env.ALLOWED_ORIGIN,
   OPENROUTER_API_KEY: openRouterApiKey,
   OPENROUTER_MODEL: process.env.OPENROUTER_MODEL ?? 'openai/gpt-oss-120b:free'
 });
