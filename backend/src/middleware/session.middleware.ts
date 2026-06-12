@@ -5,11 +5,12 @@ import { ERROR_MESSAGES } from '../constants/error-messages.js';
 import { SUCCESS_MESSAGES } from '../constants/success-messages.js';
 import { ensureSession } from '../services/session.service.js';
 import { generateSessionId } from '../utils/generateSessionId.js';
+import { CookieSerializeOptions } from '@fastify/cookie';
 
 const SESSION_COOKIE_NAME = 'chat_session';
 const SESSION_COOKIE_MAX_AGE_SECONDS = 60 * 60 * 24 * 30;
 
-const sessionCookieOptions = {
+const sessionCookieOptions: CookieSerializeOptions = {
   httpOnly: true,
   sameSite: env.NODE_ENV === 'production' ? 'none' : 'lax',
   secure: env.NODE_ENV === 'production',
