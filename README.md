@@ -456,3 +456,9 @@ For the scope of this assignment, simulated streaming was chosen as a simpler so
                 └── [conversationId]/
                     └── +page.svelte
 ```
+
+---
+
+## License
+
+This project is licensed under the [MIT License](https://github.com/ArNAB-0053/helio/blob/main/LICENSE).
