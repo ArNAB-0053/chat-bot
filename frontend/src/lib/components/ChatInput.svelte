@@ -108,7 +108,7 @@
       aria-label="Message"
       placeholder="Type your message..."
       rows={1}
-      class="max-h-36 min-h-11 resize-none rounded-lg py-3 text-sm"
+      class="max-h-36 min-h-11 resize-none rounded-lg py-3 text-sm!"
       bind:value={message}
       disabled={!conversationId || isPendingOrStreaming}
       onkeydown={handleKeyDown}
