@@ -29,7 +29,7 @@
 </script>
 
 <Dialog.Root bind:open>
-  <Dialog.Content class="sm:max-w-md h-50 rounded-sm">
+  <Dialog.Content class="sm:max-w-md h-60 md:h-50 rounded-sm">
     <Dialog.Header>
       <Dialog.Title>Create Conversation</Dialog.Title>
       <Dialog.Description>
