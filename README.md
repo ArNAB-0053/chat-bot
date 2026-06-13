@@ -321,17 +321,24 @@ For the scope of this assignment, simulated streaming was chosen as a simpler so
 
 ## Screenshots
 
-### 1. Landing Page
-* [TODO]
+### Desktop
 
-### 2. Create Conversation
-* [TODO]
+| Landing Page | Create Conversation |
+| --- | --- |
+| <img src="https://github.com/user-attachments/assets/f4f12948-994a-446f-934a-c1c250cbdba0" width="100%"> | <img src="https://github.com/user-attachments/assets/c134af4e-5eca-4e2d-b51c-4c4ed4def6fe" width="100%"> |
 
-### 3. Active Conversation
-* [TODO]
+| New Conversation | Active Conversation |
+| --- | --- |
+| <img src="https://github.com/user-attachments/assets/029b1b5a-dc3d-4f8e-a704-2b1c85c19338" width="100%"> | <img src="https://github.com/user-attachments/assets/09960d77-f67b-4a01-9aae-17a28fa1e071" width="100%"> |
 
-### 4. Mobile Experience
-* [TODO]
+### Mobile
+
+| Home | Sidebar | New Conversation | Create Modal | Active Chat |
+| --- | --- | --- | --- | --- |
+| <img src="https://github.com/user-attachments/assets/d8a755a4-6792-46e9-945f-ca4cc6e5a0c2" width="160"> | <img src="https://github.com/user-attachments/assets/30da2c96-c6db-4e5f-a20e-71b63d19aefc" width="160"> | <img src="https://github.com/user-attachments/assets/efc92b85-cbd3-42b0-baba-39738a1efc1c" width="160"> | <img src="https://github.com/user-attachments/assets/f891b2df-feea-4f3f-a4e9-9ef6d12761c7" width="160"> | <img src="https://github.com/user-attachments/assets/cbf2f006-1a98-4ee1-ad24-3cd10bb5d899" width="160"> |
+
+
+
 
 ---
 
@@ -449,9 +456,3 @@ For the scope of this assignment, simulated streaming was chosen as a simpler so
                 └── [conversationId]/
                     └── +page.svelte
 ```
-
----
-
-## License
-
-This project is licensed under the [MIT License](backend/package.json#L5).
